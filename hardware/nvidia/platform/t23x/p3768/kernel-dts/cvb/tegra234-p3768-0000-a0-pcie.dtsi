@@ -26,6 +26,7 @@
 		phy-names = "p2u-0", "p2u-1", "p2u-2", "p2u-3";
 	};
 
+/*
 	pcie@141e0000 {
 		/*
 		 * C7 - M2 Key M, default config, other config possible as
@@ -33,11 +34,25 @@
 		 * C7 x2 - default
 		 * C7 x1 or C9 x1
 		 */
+		 /*
 		status = "okay";
 		phys = <&p2u_gbe_0>, <&p2u_gbe_1>;
 		phy-names = "p2u-0", "p2u-1";
 	};
+*/
 
+	pcie@141e0000 { /* C7x1 node */
+		  status = "okay";
+		  phys = <&p2u_gbe_0>;
+		  phy-names = "p2u-0";
+        };
+ 
+        pcie@140c0000 { /* C9x1 */
+		  status = "okay";
+		  phys = <&p2u_gbe_1>;
+		  phy-names = "p2u-0";
+        };
+ 
 	pcie@140a0000 {/* C8 - Ethernet */
 		status = "okay";
 

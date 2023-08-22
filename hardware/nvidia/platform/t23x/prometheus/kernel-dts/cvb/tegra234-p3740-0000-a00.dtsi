@@ -16,7 +16,7 @@
 #include "tegra234-p3740-audio.dtsi"
 #include "tegra234-p3740-fixed-regulator.dtsi"
 #include "tegra234-p3740-pcie.dtsi"
-#include "tegra234-p3740-camera-modules.dtsi"
+//#include "tegra234-p3740-camera-modules.dtsi"
 
 / {
 	gpio-keys {

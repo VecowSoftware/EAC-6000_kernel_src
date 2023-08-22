@@ -343,7 +343,8 @@ static int rtl8211f_config_init(struct phy_device *phydev)
 	}
 
 	/* Enable all speeds for activity indicator  and LED0 for GBE */
-	val = RTL8211F_LED0_LINK_1000 | RTL8211F_LED1_LINK_1000 |
+	printk(KERN_INFO "RTL8211 SET LED!!");
+	val = RTL8211F_LED0_LINK_1000| RTL8211F_LED1_LINK_1000 |
 		RTL8211F_LED1_LINK_100 | RTL8211F_LED1_LINK_10 |
 		RTL8211F_LED1_LINK_ACTIVE;
 
