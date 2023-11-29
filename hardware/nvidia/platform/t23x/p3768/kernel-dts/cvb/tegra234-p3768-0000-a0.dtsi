@@ -166,10 +166,7 @@
 
                                 };     
                                 
-                rtc@0x68{
-		   	compatible = "dallas,ds1307";
-			reg = <0x68>;
-                };
+  
 		/*
 		fusb301@25 {
 	                          compatible = "onsemi,fusb301";
@@ -189,6 +186,13 @@
 		};*/
 		
 	};
+	i2c@c250000{
+		status = "okay";
+	        rtc@0x32{
+		   	compatible = "epson,rx8130";
+			reg = <0x32>;
+                };
+                };
 	spi@3210000{ /* SPI1 in 40 pin conn */
 		status = "okay";
 		spi@0 { /* chip select 0 */

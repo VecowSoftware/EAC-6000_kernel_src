@@ -213,7 +213,8 @@ static int ds1307_get_time(struct device *dev, struct rtc_time *t)
 	int		tmp, ret;
 	const struct chip_desc *chip = &chips[ds1307->type];
 	u8 regs[7];
-
+	struct rtc_time time_init;
+	int		result;
 	if (ds1307->type == rx_8130) {
 		unsigned int regflag;
 		ret = regmap_read(ds1307->regmap, RX8130_REG_FLAG, &regflag);
@@ -223,8 +224,52 @@ static int ds1307_get_time(struct device *dev, struct rtc_time *t)
 		}
 
 		if (regflag & RX8130_REG_FLAG_VLF) {
+			
+			ret = regmap_write(ds1307->regmap, RX8130_REG_FLAG,
+				      0x00);
 			dev_warn_once(dev, "oscillator failed, set time!\n");
-			return -EINVAL;
+			time_init.tm_year = 2023;
+			time_init.tm_mon  = 11;
+			time_init.tm_mday  = 28;
+			time_init.tm_hour = 9;
+			time_init.tm_min  = 0;
+			time_init.tm_sec  = 0;
+			//ds1307_set_time(dev, time_init);
+		        regs[DS1307_REG_SECS] = bin2bcd(time_init.tm_sec);
+			regs[DS1307_REG_MIN] = bin2bcd(time_init.tm_min);
+			regs[DS1307_REG_HOUR] = bin2bcd(time_init.tm_hour);
+			/* rx8130 is bit position, not BCD */
+			if (ds1307->type == rx_8130)
+				regs[DS1307_REG_WDAY] = 1 << time_init.tm_wday;
+			else
+				regs[DS1307_REG_WDAY] = bin2bcd(time_init.tm_wday + 1);
+			regs[DS1307_REG_MDAY] = bin2bcd(time_init.tm_mday);
+			regs[DS1307_REG_MONTH] = bin2bcd(time_init.tm_mon + 1);
+
+			/* assume 20YY not 19YY */
+			tmp = time_init.tm_year - 100;
+			regs[DS1307_REG_YEAR] = bin2bcd(tmp);
+			if (chip->century_enable_bit)
+				regs[chip->century_reg] |= chip->century_enable_bit;
+			if (t->tm_year > 199 && chip->century_bit)
+				regs[chip->century_reg] |= chip->century_bit;
+			dev_dbg(dev, "%s: %7ph\n", "write", regs);
+			result = regmap_bulk_write(ds1307->regmap, chip->offset, regs,
+						   sizeof(regs));
+			if (result) {
+				dev_err(dev, "%s error %d\n", "write", result);
+				return result;
+			}
+
+			if (ds1307->type == rx_8130) {
+				/* clear Voltage Loss Flag as data is available now */
+				result = regmap_write(ds1307->regmap, RX8130_REG_FLAG,
+						      ~(u8)RX8130_REG_FLAG_VLF);
+				if (result) {
+					return -EINVAL;
+				}
+
+			}
 		}
 	}
 
