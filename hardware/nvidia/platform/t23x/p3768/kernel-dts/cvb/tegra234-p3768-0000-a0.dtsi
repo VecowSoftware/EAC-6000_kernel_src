@@ -35,6 +35,7 @@
 		power_key {
 			label = "power-key";
 			gpios = <&tegra_aon_gpio TEGRA234_AON_GPIO(EE, 4) GPIO_ACTIVE_LOW>;
+			//gpios = <&tegra_main_gpio TEGRA234_MAIN_GPIO(I, 0) GPIO_ACTIVE_LOW>;
 			linux,code = <KEY_POWER>;
 			gpio-key,wakeup;
 		};
