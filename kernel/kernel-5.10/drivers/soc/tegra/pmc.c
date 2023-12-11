@@ -5995,6 +5995,7 @@ static const struct tegra_wake_event tegra234_wake_events[] = {
 	TEGRA_WAKE_IRQ("pmu", 24, 209),
 	TEGRA_WAKE_IRQ("rtc", 73, 10),
 	TEGRA_WAKE_GPIO("power", 29, 1, TEGRA234_AON_GPIO(EE, 4)),
+	TEGRA_WAKE_GPIO("wakeup", 2, 1, TEGRA234_AON_GPIO(EE, 2)),
 	TEGRA_WAKE_IRQ("sw_wake", 83, 179),
 	TEGRA_WAKE_GPIO("sd_wake", 8, 0, TEGRA234_MAIN_GPIO(G, 7)),
 	TEGRA_WAKE_GPIO("pex_wake", 1, 0, TEGRA234_MAIN_GPIO(L, 2)),
