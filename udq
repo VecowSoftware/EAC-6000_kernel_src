@@ -1,0 +1,41 @@
+[33mcommit 0d58d3c6ceaebc29b68518a3f496477cc3790d90[m[33m ([m[1;36mHEAD[m[33m, [m[1;33mtag: customize_v121207[m[33m, [m[1;32mcustomize_gpio[m[33m)[m
+Author: LeoChang99 <mufair1988@gmail.com>
+Date:   Sun Dec 10 21:11:50 2023 -0500
+
+    Modify RSV_GPIO_P05 as a wakeup pin.
+
+[33mcommit 1713437ac2cecbb7126c3bcd9e3515891bf11004[m[33m ([m[1;33mtag: costomize_v231204[m[33m, [m[1;32mR35.3.1[m[33m)[m
+Author: LeoChang99 <mufair1988@gmail.com>
+Date:   Sun Dec 3 22:12:40 2023 -0500
+
+    Modify kernel driver to module type to reduce boot duration.
+
+[33mcommit 70644855148c910f77d1c3d4b90f71d13a5ab885[m[33m ([m[1;33mtag: standard_v231130[m[33m)[m
+Author: LeoChang99 <mufair1988@gmail.com>
+Date:   Wed Nov 29 01:04:36 2023 -0500
+
+    Support RX8130CE.
+
+[33mcommit f79d316598612491707dc3875bc147f4372b5408[m[33m ([m[1;33mtag: release_v230915[m[33m)[m
+Author: LeoChang88 <mufair1988@gmail.com>
+Date:   Thu Sep 21 04:45:59 2023 -0400
+
+    Change wifi driver to module type.
+
+[33mcommit 432f8cf5967ece71a3df62321d4aa87690af9aee[m[33m ([m[1;31morigin/R35.3.1[m[33m)[m
+Author: Leo.Chang <mufair1988@gmail.com>
+Date:   Tue Aug 22 11:01:59 2023 +0800
+
+    Edit for EAC-6000 Rev.A.
+
+[33mcommit 6be3d2abb99310b3b34d180d76b18577bd32de3f[m
+Author: Leo.Chang <mufair1988@gmail.com>
+Date:   Tue Aug 22 10:57:57 2023 +0800
+
+    Src from NV.
+
+[33mcommit 00073b1d77270f19beea6f8dc7d9a314a423f7ad[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: VecowSoftware <61141273+VecowSoftware@users.noreply.github.com>
+Date:   Tue Aug 22 10:24:44 2023 +0800
+
+    Initial commit

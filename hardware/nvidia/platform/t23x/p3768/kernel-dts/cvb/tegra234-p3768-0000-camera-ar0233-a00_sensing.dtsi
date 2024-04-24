@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "tegra234-EAC-6000-camera-imx390-a00_otocam.dtsi"
+#include "tegra234-camera-ar0233-a00_sensing.dtsi"
 #include "dt-bindings/clock/tegra234-clock.h"
 
 
@@ -25,22 +25,23 @@
 /* camera control gpio definitions */
 
 / {
-gpio@2200000 {
-		camera-control-0_output-high {
+		gpio@2200000 {
+	
+		camera-control-output-CAM0-high {
                         status = "okay";
                         gpio-hog;
                         gpios = <CAM0_PWDN 0>;
                         output-high;
                         label = "cam0-pwdn";
                 };
-		camera-control-1_output-high {
+		camera-control-output-CAM1-high {
                         status = "okay";
                         gpio-hog;
                         gpios = <CAM1_PWDN 0>;
                         output-high;
                         label = "cam1-pwdn";
                 };
-		camera-control-4_output-high {
+                camera-control-output-high {
                         status = "okay";
                         gpio-hog;
                         gpios = <CAM_PWM 0>;
@@ -64,30 +65,29 @@ gpio@2200000 {
 				#size-cells = <0>;
 				i2c-mux-idle-disconnect;
 				dser: max9296@48 {
-					compatible = "maxim,max9296";
-					streams = "yuv8";
+					compatible = "sensing,max9296";
 					reg = <0x48>;
 					csi-mode = "2x4";
 					max-src = <2>;
-					fsync-gpio = <6>; //fsync gpio on 9296
-					reset-gpios = <&tegra_main_gpio CAM0_PWDN GPIO_ACTIVE_HIGH>;
+					//fsync-gpio = <6>; //fsync gpio on 9296
+					//reset-gpios = <&tegra_main_gpio CAM0_PWDN GPIO_ACTIVE_HIGH>;
 				};
-				ser_prim: max9295_prim@62 {
-					compatible = "maxim,max9295";
-					reg = <0x62>;
+				ser_prim: max9295_prim@40 {
+					compatible = "sensing,max9295";
+					reg = <0x40>;
 					is-prim-ser;
 				};
-				ser_a: max9295_a@40 {
-					compatible = "maxim,max9295";
-					reg = <0x40>;
+				ser_a: max9295_a@42 {
+					compatible = "sensing,max9295";
+					reg = <0x42>;
 					nvidia,gmsl-dser-device = <&dser>;
 				};
 				ser_b: max9295_b@60 {
-					compatible = "maxim,max9295";
+					compatible = "sensing,max9295";
 					reg = <0x60>;
 					nvidia,gmsl-dser-device = <&dser>;
 				};
-				imx390isp_a@1b {
+				cam0@1b {
 					reg = <0x1b>;
 					
 					/* Define any required hw resources needed by driver */
@@ -99,7 +99,7 @@ gpio@2200000 {
 					nvidia,gmsl-ser-device = <&ser_a>;
 					nvidia,gmsl-dser-device = <&dser>;
 				};
-				imx390isp_b@1c {
+				cam1@1c {
 					reg = <0x1c>;
 					
 					/* Define any required hw resources needed by driver */
@@ -119,31 +119,32 @@ gpio@2200000 {
 				#size-cells = <0>;
 				i2c-mux-idle-disconnect;
 				dsera: max9296@48 {
-					compatible = "maxim,max9296";
-					//streams = "yuv8";
+					compatible = "sensing,max9296";
 					reg = <0x48>;
 					csi-mode = "2x4";
 					max-src = <2>;
-					reset-gpios = <&tegra_main_gpio CAM1_PWDN GPIO_ACTIVE_HIGH>;
-                                        fsync-gpio = <6>; //fsync gpio on 9296
+					//reset-gpios = <&tegra_main_gpio CAM1_PWDN GPIO_ACTIVE_HIGH>;
+                                        //fsync-gpio = <6>; //fsync gpio on 9296
 				};
-				ser_prima: max9295_prim@62 {
-					compatible = "maxim,max9295";
-					reg = <0x62>;
+				ser_prima: max9295_prim@40 {
+					compatible = "sensing,max9295";
+					//streams = "yuv8";
+					reg = <0x40>;
 					is-prim-ser;
 				};
-				ser_c: max9295_a@40 {
-					compatible = "maxim,max9295";
-					reg = <0x40>;
+				ser_c: max9295_a@42 {
+					compatible = "sensing,max9295";
+					reg = <0x42>;
 					nvidia,gmsl-dser-device = <&dsera>;
 				};
 				ser_d: max9295_b@60 {
-					compatible = "maxim,max9295";
+					compatible = "sensing,max9295";
 					reg = <0x60>;
 					nvidia,gmsl-dser-device = <&dsera>;
 				};
-				imx390isp_c@1b{
+				cam2@1b{
 					reg = <0x1b>;
+						
 					clocks = <&bpmp_clks TEGRA234_CLK_EXTPERIPH1>,
 							<&bpmp_clks TEGRA234_CLK_EXTPERIPH1>;
 					clock-names = "extperiph1", "pllp_grtba";
@@ -151,7 +152,7 @@ gpio@2200000 {
 					nvidia,gmsl-ser-device = <&ser_c>;
 					nvidia,gmsl-dser-device = <&dsera>;
 				};
-				imx390isp_d@1c {
+				cam3@1c {
 					reg = <0x1c>;
 						
 					clocks = <&bpmp_clks TEGRA234_CLK_EXTPERIPH1>,
@@ -164,5 +165,5 @@ gpio@2200000 {
 			};
 
 		};
-};
+	};
 };

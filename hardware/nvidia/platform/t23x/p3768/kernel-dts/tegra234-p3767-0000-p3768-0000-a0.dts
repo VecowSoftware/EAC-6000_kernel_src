@@ -28,5 +28,6 @@
 	nvidia,dtsfilename = __FILE__;
 	nvidia,dtbbuildtime = __DATE__, __TIME__;
 	compatible = "nvidia,p3768-0000+p3767-0000", "nvidia,p3767-0000", "nvidia,tegra234", "nvidia,tegra23x";
-	model = "NVIDIA Orin NX Developer Kit";
+	model = "EAC-6000";
+        nsdk_version = "v1.1.0.0";
 };
